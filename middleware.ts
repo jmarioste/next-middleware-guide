@@ -1,4 +1,4 @@
-import { stackMiddleware } from "middlewares/getMiddlewares";
+import { stackMiddleware } from "middlewares/stackMiddlewares";
 import { withAuthorization } from "middlewares/withAuthorization";
 import { withHeaders } from "middlewares/withHeaders";
 
