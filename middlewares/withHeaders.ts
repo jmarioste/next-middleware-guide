@@ -4,7 +4,6 @@ import { MiddlewareFactory } from "./types";
 
 export const withHeaders: MiddlewareFactory = (next) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
-    console.log("withHeaders");
     const res = await next(request, _next);
     if (res) {
       res.headers.set("x-content-type-options", "nosniff");
