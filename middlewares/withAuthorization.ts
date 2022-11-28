@@ -1,18 +1,13 @@
 import { getToken } from "next-auth/jwt";
-import {
-  NextFetchEvent,
-  NextMiddleware,
-  NextRequest,
-  NextResponse,
-} from "next/server";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
-export default function withAuthorization(
-  middleware: NextMiddleware,
-  requireAuth: string[] = []
-) {
-  return async (request: NextRequest, next: NextFetchEvent) => {
+import { MiddlewareFactory } from "./types";
+
+export const withAuthorization: MiddlewareFactory = (next) => {
+  return async (request: NextRequest, _next: NextFetchEvent) => {
     const pathname = request.nextUrl.pathname;
-    if (requireAuth.some((path) => pathname.startsWith(path))) {
+    console.log("withAuthorization");
+    if (["/admin"]?.some((path) => pathname.startsWith(path))) {
       const token = await getToken({
         req: request,
         secret: process.env.NEXTAUTH_SECRET,
@@ -27,6 +22,6 @@ export default function withAuthorization(
         return NextResponse.rewrite(url);
       }
     }
-    return middleware(request, next);
+    return next(request, _next);
   };
-}
+};

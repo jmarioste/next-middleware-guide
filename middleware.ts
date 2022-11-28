@@ -1,10 +1,7 @@
-import withAuthorization from "middlewares/withAuthorization";
-import { NextMiddleware, NextResponse } from "next/server";
+import { stackMiddleware } from "middlewares/getMiddlewares";
+import { withAuthorization } from "middlewares/withAuthorization";
+import { withHeaders } from "middlewares/withHeaders";
 
-const mainMiddleware: NextMiddleware = (request) => {
-  const res = NextResponse.next();
-  //other middleware operations
-  return res;
-};
+const factories = [withHeaders, withAuthorization];
 
-export default withAuthorization(mainMiddleware, ["/admin"]);
+export default stackMiddleware(factories);
