@@ -1,7 +1,9 @@
-import { stackMiddleware } from "middlewares/stackMiddlewares";
-import { withAuthorization } from "middlewares/withAuthorization";
 import { withHeaders } from "middlewares/withHeaders";
+import { withLogging } from "middlewares/withLogging";
+import { NextResponse } from "next/server";
 
-const middlewares = [withHeaders, withAuthorization];
+export function defaultMiddleware() {
+  return NextResponse.next();
+}
 
-export default stackMiddleware(middlewares);
+export default withLogging(withHeaders(defaultMiddleware));

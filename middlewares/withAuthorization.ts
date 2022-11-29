@@ -6,7 +6,7 @@ import { MiddlewareFactory } from "./types";
 export const withAuthorization: MiddlewareFactory = (next) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
     const pathname = request.nextUrl.pathname;
-    console.log("withAuthorization");
+
     if (["/admin"]?.some((path) => pathname.startsWith(path))) {
       const token = await getToken({
         req: request,

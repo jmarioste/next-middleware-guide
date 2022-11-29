@@ -6,7 +6,6 @@ export function stackMiddleware(
   index = 0
 ): NextMiddleware {
   const current = functions[index];
-
   if (index === functions.length) {
     return () => NextResponse.next();
   } else {
